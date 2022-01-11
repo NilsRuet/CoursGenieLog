@@ -4,14 +4,33 @@ import datamocklib.Person;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class MainExercice1 {
 
-    // Format du fichier : firstName,lastName,birthDate,gender,cityOfResidence,cityOfBirth
-    // Pas de header
+    /*
+    Transforms a list of string representing Person objects into actual Person objects
+    data : list of string (one person = one string)
+    returns a list of Person parsed from data
+    */
     public List<Person> parse(List<String> data) {
-        // A COMPLETER
-        return new ArrayList<Person>();
+        int expectedTokens = 6;
+        ArrayList<Person> res = new ArrayList<Person>();
+        for(int i = 0; i < data.size(); i++) {
+            String row = data.get(i);
+            StringTokenizer tokenizer = new StringTokenizer(row, ",");
+            if(tokenizer.countTokens() == expectedTokens)
+            {
+                String firstName = tokenizer.nextToken();
+                String lastName = tokenizer.nextToken();
+                String birthDate = tokenizer.nextToken();
+                String gender = tokenizer.nextToken();
+                String cityResidence = tokenizer.nextToken();
+                String cityBirth = tokenizer.nextToken();
+                res.add(new Person(firstName, lastName, birthDate, gender, cityResidence, cityBirth));
+            }
+        }
+        return res;
     }
 
     public static void main(String[] args) {
