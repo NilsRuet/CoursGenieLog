@@ -6,9 +6,13 @@ import exercice1.MainExercice1;
 import exercice2.models.*;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MainExercice2 implements Exo2 {
+    private final static int AGE_LIMIT = 25;
+
     private final static String SERVER_FILE = "server.txt";
     /* EXO 2
      * Recupérez depuis le serveur la liste des gens qui sont nés à Chambéry.
@@ -19,6 +23,10 @@ public class MainExercice2 implements Exo2 {
      *  - Afficher les données locale grace à TxtHelper.getDataFromTxt("local.txt")
      */
 
+    /*
+    * Fetchs all persons on the server
+    * returns the list of person objects
+    * */
     private List<Person> fetchAll()
     {
         List<String> data = TxtHelper.getDataFromTxt(SERVER_FILE);
@@ -26,17 +34,27 @@ public class MainExercice2 implements Exo2 {
         return parser.parse(data);
     }
 
-    @Override
-    public void displayPersonFromChambery() {
+    /*
+    * Displays persons among a list of person which match a predicate
+    * */
+    private void displayWhere(Predicate<Person> personFilter)
+    {
         List<Person> persons = fetchAll();
-        List<Person> fromChambery = persons.stream()
-                .filter((Person person) -> person.getCityOfResidence() == "Chambéry")
+        List<Person> matching = persons.stream()
+                .filter(personFilter)
                 .collect(Collectors.toList());
-        for (Person person: fromChambery)
+        for (Person person: matching)
         {
             System.out.println(person.toString());
         }
+    }
 
+    /*
+    * Displays persons whose city of residence is chambéry
+    * */
+    @Override
+    public void displayPersonFromChambery() {
+        displayWhere((Person person) -> person.getCityOfResidence().toLowerCase().equals("chambéry")); // Todo méthode de Person
     }
 
     /*
@@ -46,8 +64,9 @@ public class MainExercice2 implements Exo2 {
      */
     @Override
     public void displayBoomers() {
-
+        displayWhere((Person person) -> person.getAge() > AGE_LIMIT); // Todo méthode de Person
     }
+
 
     /*
      * Recupérez depuis le serveur la liste des gens de sexe féminin.
@@ -55,7 +74,7 @@ public class MainExercice2 implements Exo2 {
      */
     @Override
     public void displayFemales() {
-
+        displayWhere((Person person) -> person.getGender().toLowerCase().equals("female")); // Todo méthode de Person
     }
 
     /*
@@ -64,7 +83,7 @@ public class MainExercice2 implements Exo2 {
      */
     @Override
     public void displayFemaleBoomers() {
-
+        displayWhere((Person person) -> (person.getGender().toLowerCase().equals("female") &&  person.getAge() > AGE_LIMIT)); // Todo méthode de Person
     }
 
     public static void main(String[] args) {
