@@ -1,4 +1,8 @@
-package datamocklib.exo1;
+package datamocklib;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Person {
 
@@ -64,5 +68,27 @@ public class Person {
 
     public String getCityOfResidence() {
         return cityOfResidence;
+    }
+
+    public int getAge() {
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(birthDate);
+            return 2022 - date.getYear();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", gender='" + gender + '\'' +
+                ", cityOfResidence='" + cityOfResidence + '\'' +
+                ", cityOfBirth='" + cityOfBirth + '\'' +
+                '}';
     }
 }

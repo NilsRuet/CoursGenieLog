@@ -24,6 +24,7 @@ public class TxtHelper {
         return data;
     }
 
+
     /**
      * Insert a line of data at the end of a txt file
      * @param data the line of data you want to add in the file
@@ -40,5 +41,11 @@ public class TxtHelper {
             e.printStackTrace();
             return 400;
         }
+    }
+
+    public static void clearDataLocal() throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(Constants.LOCALFILE);
+        writer.print("");
+        writer.close();
     }
 }
