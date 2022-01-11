@@ -1,9 +1,15 @@
 package exercice2;
 
+import datamocklib.Person;
+import datamocklib.TxtHelper;
+import exercice1.MainExercice1;
 import exercice2.models.*;
 
-public class MainExercice2 implements Exo2 {
+import java.util.List;
+import java.util.stream.Collectors;
 
+public class MainExercice2 implements Exo2 {
+    private final static String SERVER_FILE = "server.txt";
     /* EXO 2
      * Recupérez depuis le serveur la liste des gens qui sont nés à Chambéry.
      * La récupération de Data se fait dans l'ordre :
@@ -12,9 +18,25 @@ public class MainExercice2 implements Exo2 {
      *  - Insérer les données dans la database locale grâce à la fonction TxtHelper.insertDataInTxt(line, "local.txt")
      *  - Afficher les données locale grace à TxtHelper.getDataFromTxt("local.txt")
      */
+
+    private List<Person> fetchAll()
+    {
+        List<String> data = TxtHelper.getDataFromTxt(SERVER_FILE);
+        MainExercice1 parser = new MainExercice1();
+        return parser.parse(data);
+    }
+
     @Override
     public void displayPersonFromChambery() {
-        System.out.println("todo");
+        List<Person> persons = fetchAll();
+        List<Person> fromChambery = persons.stream()
+                .filter((Person person) -> person.getCityOfResidence() == "Chambéry")
+                .collect(Collectors.toList());
+        for (Person person: fromChambery)
+        {
+            System.out.println(person.toString());
+        }
+
     }
 
     /*
