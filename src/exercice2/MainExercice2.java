@@ -54,7 +54,7 @@ public class MainExercice2 implements Exo2 {
     * */
     @Override
     public void displayPersonFromChambery() {
-        displayWhere((Person person) -> person.getCityOfResidence().toLowerCase().equals("chambéry")); // Todo méthode de Person
+        displayWhere((Person person) -> person.getCityOfResidence().toLowerCase().equals("chambery")); // Todo méthode de Person
     }
 
     /*
@@ -88,6 +88,6 @@ public class MainExercice2 implements Exo2 {
 
     public static void main(String[] args) {
         Exo2 exo2 = new MainExercice2();
-        exo2.displayBoomers();
+        exo2.displayPersonFromChambery();
     }
 }
