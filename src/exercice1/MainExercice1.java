@@ -18,6 +18,7 @@ public class MainExercice1 {
         ArrayList<Person> res = new ArrayList<Person>();
         for(int i = 0; i < data.size(); i++) {
             String row = data.get(i);
+            // Splitting row on comas
             StringTokenizer tokenizer = new StringTokenizer(row, ",");
             if(tokenizer.countTokens() == expectedTokens)
             {
@@ -42,7 +43,5 @@ public class MainExercice1 {
          * - Calculer le nombre de personnes nées dans chaque ville avec les données obtenues.
          * Les données contiennent une trentaine de villes, Bonne chance !
         */
-
-
     }
 }
